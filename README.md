@@ -3,10 +3,10 @@ vimux-ipy
 
 This is a vim plugin for added python functionality built on top 
 of [vimux](https://github.com/benmills/vimux/); thus, it assumes 
-that the vimux plugin is installed as well.  Also, it is adapted 
-from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
-though I just abstracted away some of the details so it is faster
-to get up and running.
+that the vimux plugin is installed as well.  Also, it is heavily 
+adapted from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
+though I just abstracted away some of the details in setting it up 
+so that it is faster to get up and running.
 
 
 There are two main uses:
