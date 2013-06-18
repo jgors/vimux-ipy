@@ -86,7 +86,7 @@ def run_cell(save_position=False, cell_delim='####'):
         vim.current.window.cursor = (row, col)
 
     # this clears the highlighting from the delims
-    vim.command(':noh <CR>') 
+    vim.command(':noh') 
 
 endpython
 
