@@ -81,6 +81,9 @@ def run_cell(save_position=False, cell_delim='####'):
     # Run chunk on cell range
     vim.command(':?%s?;/%s/ :python run_visual_code()' % (cell_delim, cell_delim))
 
+    # this clears the highlighting from the delims
+    vim.command(':noh<cr>') 
+
     if save_position:
         # Restore cursor position
         vim.current.window.cursor = (row, col)
