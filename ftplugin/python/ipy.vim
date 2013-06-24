@@ -11,51 +11,67 @@ import re
 def run_visual_code():
     """
     copy & paste the currently selected code into the tmux split.
-    the code is unindented so the first selected line has 0 indentation,
-    thus can select a statement from inside a function and it will run
-    without indentation being off for python.
     """
 
+    # multiple ways to send code into tmux split
+
+    # 1. With %paste from the system clipboard
+    # 2. With %cpaste
+    # 3. Send raw text with vimux 
+
+    use_paste = 1
+    use_cpaste = 0
+    use_raw = 0
+
     r = vim.current.range
-    # Count indentation on first selected line
-    firstline = vim.current.buffer[r.start]
-    nindent = 0
-    for i in xrange(0, len(firstline)):
-        if firstline[i] == ' ':
-            nindent += 1
-        else:
-            break
-
-    # Shift the whole text by nindent spaces (so the first line has 0 indent)
     lines = vim.current.buffer[r.start:r.end+1]
-    if nindent > 0:
-        pat = '\s' * nindent
-        lines = "\n".join([re.sub('^%s' % pat, '', l) for l in lines])
-    else:
+
+    if use_paste:
         lines = "\n".join(lines)
+        lines += "\n\n"
 
-    # Add empty newline at the end
-    lines += "\n\n"
+        # register might need to be set as * instead of +
+        vim.command("let @+='%s'" % (lines.replace("'", "''")))
+        vim.command(':call VimuxRunCommand("%paste\n", 0)')
 
-    # multiple solutions to copy that to tmux
+    elif use_cpaste:
+        # NOTE doesn't work with sending newline chars (eg. print 'hello \nworld')
 
-    # 1. With %cpaste
-    vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
-    vim.command(':call VimuxRunCommand("%s", 0)' % lines)
-    vim.command(':call VimuxRunCommand("\n--\n", 0)')
+        # the code is unindented so the first selected line has 0 indentation,
+        # thus can select a statement from inside a function and it will run
+        # without indentation being off for python.
+
+        # Count indentation on first selected line
+        firstline = vim.current.buffer[r.start]
+        nindent = 0
+        for i in xrange(0, len(firstline)):
+            if firstline[i] == ' ':
+                nindent += 1
+            else:
+                break
+
+        # Shift the whole text by nindent spaces (so the first line has 0 indent)
+        if nindent > 0:
+            pat = '\s' * nindent
+            lines = "\n".join([re.sub('^%s' % pat, '', l) for l in lines])
+        else:
+            lines = "\n".join(lines)
 
 
-    # 2. With %paste from the system clipboard
-    #try:
-        #set_register('+', lines)
-        #set_register('*', lines)
-    #except vim.error:
-        #pass
-    #vim.command(':call VimuxRunCommand("%paste\n", 0)')
+        # Add empty newline at the end
+        lines += "\n\n"
 
+        vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
+        vim.command(':call VimuxRunCommand("%s", 0)' % lines)
+        vim.command(':call VimuxRunCommand("\n--\n", 0)')
 
-    # 3. Directly send the raw text with vimux. 
+    elif use_raw:
+        # NOTE Doesn't work right with indentation
 
+        lines = "\n".join(lines)
+        lines += "\n\n"
+        vim.command("let @+='%s'" % (lines.replace("'", "''")))
+        vim.command(':call VimuxSendText(@+)')
 
     # Move cursor to the end of the selection
     vim.current.window.cursor=(r.end+1, 0)
@@ -64,8 +80,8 @@ def run_visual_code():
 def run_cell(save_position=False, cell_delim='####'):
     """
     This is to emulate the iPython Notebook's cell execution style.
-    This calls run_visual_code to execute the range of the current cell.
-    Cells are delimited by the cell_delim arg. 
+    It calls run_visual_code to execute the range of the current cell;
+    cells are delimited by the cell_delim arg. 
 
     The :?%s?;/%s/ part creates a range by:
     ?%s? searches backwards for the cell_delim,
@@ -81,7 +97,7 @@ def run_cell(save_position=False, cell_delim='####'):
     # Run chunk on cell range
     vim.command(':?%s?;/%s/ :python run_visual_code()' % (cell_delim, cell_delim))
 
-    # this clears the highlighting from the delims
+    # this clears the highlighting from the delim search
     vim.command(':noh') 
 
     if save_position:
