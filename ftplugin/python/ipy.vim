@@ -77,7 +77,7 @@ def run_visual_code():
     vim.current.window.cursor=(r.end+1, 0)
 
 
-def run_cell(save_position=False, cell_delim='# <codecell>'):
+def run_cell(save_position=False, cell_delim='####'): # '# <codecell>'):
     """
     This is to emulate the iPython Notebook's cell execution style.
     It calls run_visual_code to execute the range of the current cell;
