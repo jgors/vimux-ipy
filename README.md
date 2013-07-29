@@ -26,7 +26,7 @@ recognize the delimited cell blocks.
 The workflow for this would be: 
 
 + start a tmux session, 
-+ then open desired python script with vim,
++ open desired python script with vim,
 + then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
 + now visually selected code and/or delimited blocks/cells of code 
 can be sent from the python script/vim to the tmux pane running iPython.
