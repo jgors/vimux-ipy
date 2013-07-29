@@ -27,8 +27,8 @@ The workflow for this would be:
 
 + first start a tmux session, 
 + then open the desired python script,
-+ then execute the command to open the iPython tmux split (eg. Leader+vip),
-+ lastly, now visually select code and/or delimit blocks/cells of code 
++ then execute the command to open the iPython tmux pane split (eg. Leader+vip),
++ lastly, now visually selected code and/or delimited blocks/cells of code 
 can be sent from the python script to the tmux pane running iPython. 
 
 
@@ -38,7 +38,7 @@ Key mappings
 ###### example key mappings that are enabled by placing the following code into .vimrc:
 
 -----------
-##### To open the iPython tmux split with Leader+vip: 
+##### To open the iPython tmux split (`<Leader>vip`): 
 
 `map <Leader>vip :call VimuxIpy()<CR>`
 
@@ -57,12 +57,12 @@ After the iPython tmux split is created, these keybindings are made:
 `<Leader>ve`
 
 -----------
-##### To execute current visually selected block of code in the iPython tmux split: 
+##### To send & execute current visually selected block of code in the iPython tmux split (`<Leader>e`): 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
 -----------
-##### To execute the current "cell" in the iPython tmux split: 
+##### To execute the current "cell" in the iPython tmux split (`<Leader>c`): 
 
 `noremap <silent> <Leader>c :python run_cell(save_position=False, cell_delim='####')<CR>` 
 
@@ -83,13 +83,13 @@ Two arguments can be passed into `run_cell`:
     should seperate the code cell blocks.  Note, there should be a `cell_delim` 
     at the beginning of the first code cell, as well as at the end of the last code cell.
 
-    The cell_delim arg can be set such that it is the same as what the 
-    iPython notebook uses to delimit its code cells:  cell_delim='# <codecell>'  
+    This arg can be set such that it is the same as what the 
+    iPython notebook uses to delimit its code cells:  `cell_delim='# <codecell>'`  
     Thus, if cells are seperated with this, then the script can be uploaded & 
     opened as an iPython notebook, and the iPython NB environment will 
     recognize the delimited cell blocks.  
     NOTE, for this to work, the first thing at the top of the script needs to be: 
-    # <nbformat>3</nbformat>
+    `# <nbformat>3</nbformat>`
 
-    [ipython notebook format](http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
+    see [ipython notebook format](http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
 
