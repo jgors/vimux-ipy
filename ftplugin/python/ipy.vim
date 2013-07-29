@@ -31,7 +31,7 @@ def run_visual_code():
         lines += "\n\n"
 
         # register might need to be set as * instead of +
-        vim.command("let @+='%s'" % (lines.replace("'", "''")))
+        vim.command("let @*='%s'" % (lines.replace("'", "''")))
         vim.command(':call VimuxRunCommand("%paste\n", 0)')
 
     elif use_cpaste:
