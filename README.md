@@ -91,5 +91,6 @@ Two arguments can be passed into `run_cell`:
     NOTE, for this to work, the first thing at the top of the script needs to be: 
     `# <nbformat>3</nbformat>`
 
-    see [ipython notebook format](http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
+    for more details see:
+    [ipython notebook format](http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
 
