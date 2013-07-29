@@ -57,7 +57,7 @@ After the iPython tmux split is created, these keybindings are made:
 `Leader ve`
 
 -----------
-##### To send & execute current visually selected block of code in the iPython tmux split [`Leader e`]: 
+##### To send & execute visually selected block of code in the iPython tmux split [`Leader e`]: 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
