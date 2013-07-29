@@ -19,8 +19,8 @@ def run_visual_code():
     # 2. With %cpaste
     # 3. Send raw text with vimux 
 
-    use_paste = 1
-    use_cpaste = 0
+    use_paste = 0
+    use_cpaste = 1
     use_raw = 0
 
     r = vim.current.range
