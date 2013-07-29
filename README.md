@@ -29,7 +29,7 @@ The workflow for this would be:
 + open desired python script with vim,
 + then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
 + now visually selected code and/or delimited blocks/cells of code 
-can be sent from the python script/vim to the tmux pane running iPython.
+can be sent from the python script in vim to the tmux pane running iPython.
 
 
 
