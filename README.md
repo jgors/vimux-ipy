@@ -11,7 +11,7 @@ so that it is faster to get up and running.
 
 There are two main uses:
 
-+ First, it allows a block of visual-mode selected python code to be   
++ First, it allows a block of visual-mode selected python code to be 
 sent from vim to a tmux buffer split running iPython.  
 
 + Second, "cells" of code can be sent from vim to the running iPython tmux 
