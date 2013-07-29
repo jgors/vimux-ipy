@@ -77,11 +77,21 @@ def run_visual_code():
     vim.current.window.cursor=(r.end+1, 0)
 
 
-def run_cell(save_position=False, cell_delim='####'): # '# <codecell>'):
+def run_cell(save_position=False, cell_delim='####'):
     """
     This is to emulate the iPython Notebook's cell execution style.
     It calls run_visual_code to execute the range of the current cell;
-    cells are delimited by the cell_delim arg. 
+    cells are delimited by the cell_delim arg.  
+
+    The cell_delim arg can be set such that it is the same as what the 
+    iPython notebook uses to delimit its code cells (cell_delim='# <codecell>')  
+    Thus, if cells are seperated with this, then the script can be uploaded & 
+    opened as an iPython notebook, and the iPython NB environment will 
+    recognize the delimited cell blocks.  NOTE, in order for this to work, 
+    the first thing at the top of the script needs to be: 
+    # <nbformat>3</nbformat>
+
+    (http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
 
     The :?%s?;/%s/ part creates a range by:
     ?%s? searches backwards for the cell_delim,
