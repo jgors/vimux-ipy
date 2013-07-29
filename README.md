@@ -57,7 +57,7 @@ After the iPython tmux split is created, these keybindings are made:
 `Leader ve`
 
 -----------
-##### To send & execute visually selected code in the iPython tmux split [`Leader e`]: 
+##### To execute visually selected code in the iPython tmux split [`Leader e`]: 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
@@ -79,7 +79,7 @@ Two arguments can be passed into `run_cell`:
 
 * `cell_delim`: [default `'####'`]
 
-    Code cells are delimited by the `cell_delim` argument. This specifies what 
+    Code cells are delimited by the `cell_delim` argument -- this specifies what 
     should seperate the code cell blocks.  Note, there should be a `cell_delim` 
     at the beginning of the first code cell, as well as at the end of the last code cell.
 
