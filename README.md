@@ -25,11 +25,11 @@ recognize the delimited cell blocks.
 
 The workflow for this would be: 
 
-+ first start a tmux session, 
-+ then open the desired python script,
++ start a tmux session, 
++ then open desired python script with vim,
 + then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
-+ lastly, now visually selected code and/or delimited blocks/cells of code 
-can be sent from the python script/vim to the tmux pane running iPython. 
++ now visually selected code and/or delimited blocks/cells of code 
+can be sent from the python script/vim to the tmux pane running iPython.
 
 
 
@@ -38,7 +38,7 @@ Key mappings
 ###### key mappings that are enabled by placing the code into .vimrc:
 
 -----------
-##### To open the iPython tmux split (`Leader vip`): 
+##### To open the iPython tmux split [`Leader vip`]: 
 
 `map <Leader>vip :call VimuxIpy()<CR>`
 
@@ -46,23 +46,23 @@ After the iPython tmux split is created, these keybindings are made:
 
 * Jump down into the tmux pane in copy(/vim) mode
 
-`<Leader>vi`
+`Leader vi`
 
 * Close the vim tmux split
 
-`<Leader>vq`
+`Leader vq`
 
 * Interrupt any command running in the tmux pane
 
-`<Leader>ve`
+`Leader ve`
 
 -----------
-##### To send & execute current visually selected block of code in the iPython tmux split (`Leader e`): 
+##### To send & execute current visually selected block of code in the iPython tmux split [`Leader e`]: 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
 -----------
-##### To execute the current "cell" in the iPython tmux split (`Leader c`): 
+##### To execute the current "cell" in the iPython tmux split [`Leader c`]: 
 
 `noremap <silent> <Leader>c :python run_cell(save_position=False, cell_delim='####')<CR>` 
 
