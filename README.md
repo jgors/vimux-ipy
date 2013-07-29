@@ -3,10 +3,10 @@ vimux-ipy
 
 This is a vim plugin for added python functionality built on top 
 of [vimux](https://github.com/benmills/vimux/); thus, it assumes 
-that the vimux plugin is installed as well.  Also, it is heavily 
-adapted from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
-though I just abstracted away some of the details in setting it up 
-so that it is faster to get up and running.
+that the vimux plugin is installed as well.  Also, it is adapted 
+from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
+though I abstracted away many of the details to get it up and 
+running a bit quicker.
 
 
 There are two main uses:
@@ -27,18 +27,18 @@ The workflow for this would be:
 
 + first start a tmux session, 
 + then open the desired python script,
-+ then execute the command to open the iPython tmux pane split (eg. Leader+vip),
++ then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
 + lastly, now visually selected code and/or delimited blocks/cells of code 
-can be sent from the python script to the tmux pane running iPython. 
+can be sent from the python script/vim to the tmux pane running iPython. 
 
 
 
 Key mappings
 -----------
-###### example key mappings that are enabled by placing the following code into .vimrc:
+###### key mappings that are enabled by placing the code into .vimrc:
 
 -----------
-##### To open the iPython tmux split (`<Leader>vip`): 
+##### To open the iPython tmux split (`Leader vip`): 
 
 `map <Leader>vip :call VimuxIpy()<CR>`
 
@@ -57,12 +57,12 @@ After the iPython tmux split is created, these keybindings are made:
 `<Leader>ve`
 
 -----------
-##### To send & execute current visually selected block of code in the iPython tmux split (`<Leader>e`): 
+##### To send & execute current visually selected block of code in the iPython tmux split (`Leader e`): 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
 -----------
-##### To execute the current "cell" in the iPython tmux split (`<Leader>c`): 
+##### To execute the current "cell" in the iPython tmux split (`Leader c`): 
 
 `noremap <silent> <Leader>c :python run_cell(save_position=False, cell_delim='####')<CR>` 
 
