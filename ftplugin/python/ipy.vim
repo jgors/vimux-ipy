@@ -117,7 +117,7 @@ def run_cell(save_position=False, cell_delim='####'):
 endpython
 
 
-function! VimuxIpy()
+function! VimuxIpy(...)
     " Create key bindings
     
     " this drops a '# <codecell>' in to denote cell blocks
@@ -141,8 +141,23 @@ function! VimuxIpy()
     " Change pane height
     let g:VimuxHeight = "35"
 
+
     " Open a split with ipython by running the function
-    exec VimuxRunCommand("clear; ipython")
+    
+    " this seems hacky to me, but allows to have a defaut function
+    " value in vim, so that if nothing is passed into VimuxIpy, then
+    " it defaults to opening plain vanilla ipython, however, a string
+    " could be passed in and that will open a different invocation of
+    " ipython (eg. "ipython --profile=ssh")
+    " http://stackoverflow.com/questions/6135404/default-value-of-function-parameter-in-vim-script
+    if a:0 > 0
+        let how_to_start_ipython = a:1
+    else
+        let how_to_start_ipython = "ipython"
+    end
+
+    let start_split = "clear; " . how_to_start_ipython
+    exec VimuxRunCommand(start_split)
 
 endfunction 
 
