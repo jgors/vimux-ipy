@@ -118,6 +118,15 @@ endpython
 
 
 function! VimuxIpy()
+    " Create key bindings
+    "
+    " this drops a '# <codecell>' in to denote a new cell block
+    nmap <Leader>vc :call Delim()<CR>
+    function! Delim()
+        command Delimiter :normal i# <codecell><ESC>
+        :Delimiter
+    endfunction
+
     " Put key bindings from Vimux plugin here:
 
     " Inspect tmux pane (jump down into the pane) in vim mode
