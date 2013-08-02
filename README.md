@@ -28,7 +28,7 @@ The workflow for this would be:
 + start a tmux session, 
 + open desired python script with vim,
 + then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
-+ now visually selected code and/or delimited blocks/cells of code 
++ now visually selected code and/or delimited blocks(/cells) of code 
 can be sent from the python script in vim to the tmux pane running iPython.
 
 
@@ -56,13 +56,13 @@ After the iPython tmux split is created, these keybindings are made:
 
 `Leader ve`
 
-* Insert the cell block delimiter that iPython uses to seperate their
+* Insert the same cell block delimiter that iPython uses to seperate their
 code blocks in the iPython notebook [`# <codeblock>`]
 
 `Leader vc`
 
 -----------
-##### To execute visually selected code in the iPython tmux split [`Leader e`]: 
+##### To send & execute visually selected code in the iPython tmux split [`Leader e`]: 
 
 `vmap <silent> <Leader>e :python run_visual_code()<CR>` 
 
@@ -90,10 +90,11 @@ Two arguments can be passed into `run_cell`:
 
     This arg can be set such that it is the same as what the 
     iPython notebook uses to delimit its code cells:  `cell_delim='# <codecell>'`  
-    Thus, if cells are seperated with this, then the script can be uploaded & 
-    opened as an iPython notebook, and the iPython NB environment will 
-    recognize the delimited cell blocks.  
-    NOTE, for this to work, the first thing at the top of the script needs to be: 
+    Meaning, if cells are seperated with this as the cell_delim, then the script can 
+    be uploaded & opened as an iPython notebook, and the iPython NB environment will 
+    recognize the delimited code cell blocks -- NOTE, in order to be able to upload 
+    a script delimited in this way to the iPython notebook environment, the first 
+    thing at the very top of the script needs to be: 
     `# <nbformat>3</nbformat>`
 
     for more details see:
