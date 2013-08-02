@@ -5,8 +5,8 @@ This is a vim plugin for added python functionality built on top
 of [vimux](https://github.com/benmills/vimux/); thus, it assumes 
 that the vimux plugin is installed as well.  Also, it is adapted 
 from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
-though I add some features & abstracted away some details to get 
-it up and running a bit quicker.
+though I add some features & abstract away many details to get 
+everything up and running somewhat quicker.
 
 
 There are two main uses:
