@@ -42,9 +42,9 @@ Key mappings
 
 `map <Leader>vip :call VimuxIpy()<CR>`
 
-* Optionally, an argument can be passed into VimuxIpy() to start ipython 
+* Optionally, an argument can be passed into `VimuxIpy()` to start ipython 
 in a preferred way:  eg. `"ipython --pylab"`, or `"ipython --profile=some_cool_profile"`.  If 
-no argument is passed to VimuxIpy(), then normal ipython will start without any flags set.
+no argument is passed to `VimuxIpy()`, then normal ipython will start without any flags set.
 
 After the iPython tmux split is created, these keybindings are made:
 
@@ -92,7 +92,7 @@ Two arguments can be passed into `run_cell`:
     should seperate the code cell blocks.  Note, there should be a `cell_delim` 
     at the beginning of the first code cell, as well as at the end of the last code cell.
 
-    This arg can be set such that it is the same as what the 
+    As mentioned above, this arg can be set such that it is the same as what the 
     iPython notebook uses to delimit its code cells:  `cell_delim='# <codecell>'`  
     Meaning, if cells are seperated with this as the cell_delim, then the script can 
     be uploaded & opened as an iPython notebook, and the iPython NB environment will 
