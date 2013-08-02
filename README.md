@@ -44,7 +44,7 @@ Key mappings
 
 * Optionally, an argument can be passed into VimuxIpy() to start ipython 
 in a preferred way:  eg. `"ipython --pylab"`, or `"ipython --profile=some_cool_profile"`.  If 
-no argument is passed is passed in, then normal ipython will start without an flags set.
+no argument is passed to VimuxIpy(), then normal ipython will start without any flags set.
 
 After the iPython tmux split is created, these keybindings are made:
 
