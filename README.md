@@ -50,11 +50,11 @@ After the iPython tmux split is created, these keybindings are made:
 
 * Close the vim tmux split
 
-`Leader vq`
+`Leader vx`
 
 * Interrupt any command running in the tmux pane
 
-`Leader ve`
+`Leader vq`
 
 * Insert the same cell block delimiter that iPython uses to seperate their
 code blocks in the iPython notebook [`# <codeblock>`]

@@ -13,12 +13,12 @@ def run_visual_code():
     copy & paste the currently selected code into the tmux split.
     """
 
-    # multiple ways to send code into tmux split
-
+    ### multiple ways to send code down to tmux split:
     # 1. With %paste from the system clipboard
     # 2. With %cpaste
     # 3. Send raw text with vimux 
-
+    
+    # just pick one
     use_paste = 0
     use_cpaste = 1
     use_raw = 0
@@ -120,10 +120,10 @@ endpython
 function! VimuxIpy()
     " Create key bindings
     
-    " this drops a '# <codecell>' in to denote a new cell block
+    " this drops a '# <codecell>' in to denote cell blocks
     nmap <Leader>vc :call Delim()<CR>
+    command Delimiter :normal i# <codecell><ESC>
     function! Delim()
-        command Delimiter :normal i# <codecell><ESC>
         :Delimiter
     endfunction
 
@@ -133,16 +133,16 @@ function! VimuxIpy()
     map <Leader>vi :VimuxInspectRunner<CR>
     
     " Close vim tmux split opened by VimuxRunCommand
-    map <Leader>vq :VimuxCloseRunner<CR>
+    map <Leader>vx :VimuxCloseRunner<CR>
     
     " Interrupt any command running in the runner pane
-    map <Leader>ve :VimuxInterruptRunner<CR>
+    map <Leader>vq :VimuxInterruptRunner<CR>
 
     " Change pane height
     let g:VimuxHeight = "35"
 
     " Open a split with ipython by running the function
-    exec VimuxRunCommand("clear; ipython --pylab")
+    exec VimuxRunCommand("clear; ipython")
 
 endfunction 
 
