@@ -100,4 +100,5 @@ Two arguments can be passed into `run_cell`:
     for more details see:
     
     [ipython notebook format stable](http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
+
     [ipython notebook format dev](http://ipython.org/ipython-doc/dev/interactive/htmlnotebook.html#notebook-json-file-format)
