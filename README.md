@@ -56,6 +56,11 @@ After the iPython tmux split is created, these keybindings are made:
 
 `Leader ve`
 
+* Insert the cell block delimiter that iPython uses to seperate their
+code blocks in the iPython notebook [`# <codeblock>`]
+
+`Leader vc`
+
 -----------
 ##### To execute visually selected code in the iPython tmux split [`Leader e`]: 
 
