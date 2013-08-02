@@ -119,7 +119,7 @@ endpython
 
 function! VimuxIpy()
     " Create key bindings
-    "
+    
     " this drops a '# <codecell>' in to denote a new cell block
     nmap <Leader>vc :call Delim()<CR>
     function! Delim()
