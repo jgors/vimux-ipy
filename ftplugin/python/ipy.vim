@@ -20,22 +20,29 @@ def run_visual_code():
     
     # just pick one
     use_paste = 0
-    use_cpaste = 1
+    use_cpaste = 0
     use_raw = 0
+    use_register_with_cpaste = 1
+    #use_file = 0 # could do this way /tmp/text_to_send.py
 
     r = vim.current.range
     lines = vim.current.buffer[r.start:r.end+1]
 
+    #print 'LINES 1:'
+    #print lines
+
     if use_paste:
         lines = "\n".join(lines)
-        lines += "\n\n"
+        lines += "\n"
 
         # register might need to be set as * instead of +
-        vim.command("let @*='%s'" % (lines.replace("'", "''")))
+        vim.command(":let @*='%s'" % (lines.replace("'", "''")))
         vim.command(':call VimuxRunCommand("%paste\n", 0)')
 
     elif use_cpaste:
-        # NOTE doesn't work with sending newline chars (eg. print 'hello \nworld')
+        # NOTE doesn't work with sending newline chars (eg. print 'hello \n world')
+        # or with double quotes "hello \nworld"
+        # i think this is a limitation of VIMUX
 
         # the code is unindented so the first selected line has 0 indentation,
         # thus can select a statement from inside a function and it will run
@@ -44,7 +51,43 @@ def run_visual_code():
         # Count indentation on first selected line
         firstline = vim.current.buffer[r.start]
         nindent = 0
-        for i in xrange(0, len(firstline)):
+        for i in xrange(len(firstline)):
+            if firstline[i] == ' ':
+                nindent += 1
+            else:
+                break
+
+
+        # Shift the whole text by nindent spaces (so the first line has 0 indent)
+        if nindent > 0:
+            pat = '\s' * nindent
+            lines = "\n".join([re.sub('^%s' % pat, '', l) for l in lines])
+            #print '-----------------'
+            #print lines
+        else:
+            lines = "\n".join(lines)
+
+
+        # Add empty newline at the end
+        lines += "\n"
+
+        vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
+        vim.command(':call VimuxRunCommand("%s", 0)' % lines)
+        vim.command(':call VimuxRunCommand("\n--\n", 0)')
+
+    elif use_raw:
+        # NOTE doesn't work well
+        lines = "\n".join(lines)
+        lines += "\n"
+        vim.command("let @+='%s'" % (lines.replace("'", "''")))
+        vim.command(':call VimuxSendText(@+)')
+
+    elif use_register_with_cpaste:
+        # works
+
+        firstline = vim.current.buffer[r.start]
+        nindent = 0
+        for i in xrange(len(firstline)):
             if firstline[i] == ' ':
                 nindent += 1
             else:
@@ -59,19 +102,11 @@ def run_visual_code():
 
 
         # Add empty newline at the end
-        lines += "\n\n"
-
+        lines += "\n"
+        vim.command("let @+='%s'" % (lines.replace("'", "''"))) #doesn't work w/o this
         vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
-        vim.command(':call VimuxRunCommand("%s", 0)' % lines)
-        vim.command(':call VimuxRunCommand("\n--\n", 0)')
-
-    elif use_raw:
-        # NOTE Doesn't work right with indentation
-
-        lines = "\n".join(lines)
-        lines += "\n\n"
-        vim.command("let @+='%s'" % (lines.replace("'", "''")))
         vim.command(':call VimuxSendText(@+)')
+        vim.command(':call VimuxRunCommand("\n--\n", 0)')
 
     # Move cursor to the end of the selection
     vim.current.window.cursor=(r.end+1, 0)
@@ -144,11 +179,13 @@ function! VimuxIpy(...)
 
     " Open a split with ipython by running the function
     
-    " this seems hacky to me, but allows to have a defaut function
-    " value in vim, so that if nothing is passed into VimuxIpy, then
-    " it defaults to opening plain vanilla ipython, however, a string
-    " could be passed in and that will open a different invocation of
-    " ipython (eg. "ipython --profile=ssh")
+    " this seems hacky to me, but it allows to act like a default arg value 
+    " for the function, so that if nothing is passed into VimuxIpy(), then
+    " it defaults to opening a plain vanilla ipython; however, a string
+    " can be passed in and that will open a different invocation of
+    " ipython (eg. VimuxIpy("ipython --profile=my_great_profile") or for example, I have 
+    " VimuxIpy("ipcluster start --profile=ssh &; ipython --profile=ssh") in my
+    " vimrc)
     " http://stackoverflow.com/questions/6135404/default-value-of-function-parameter-in-vim-script
     if a:0 > 0
         let how_to_start_ipython = a:1
