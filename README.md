@@ -5,8 +5,8 @@ This is a vim plugin for added python functionality built on top
 of [vimux](https://github.com/benmills/vimux/); thus, it assumes 
 that the vimux plugin is installed as well.  Also, it is adapted 
 from [vimux-pyutils](https://github.com/julienr/vimux-pyutils), 
-though I add some features & abstract away many details to get 
-everything up and running somewhat quicker.
+but I add some features & abstracted away many details to get 
+everything up and running quicker.
 
 
 There are two main uses:
@@ -38,7 +38,7 @@ to send, or send a block of code that is delimited into cells.
 
 Key mappings
 -----------
-###### key mappings that are enabled by placing the code into .vimrc:
+###### key mappings that are enabled by placing the following code into .vimrc:
 
 -----------
 ##### To open the iPython tmux split [`Leader vip`]: 
