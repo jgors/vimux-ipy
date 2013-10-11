@@ -31,6 +31,8 @@ The workflow for this would be:
 + now visually selected code and/or delimited blocks(/cells) of code 
 can be sent from the python script in vim to the tmux pane running iPython.
 
+And it would look like this (using cells for execution):
+![](img/vim_ipython.png)
 
 
 Key mappings
