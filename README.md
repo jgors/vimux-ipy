@@ -23,7 +23,7 @@ notebook uses to delimit its code cells, then the script can be uploaded &
 opened as an iPython notebook, and the iPython NB environment will 
 recognize the delimited cell blocks.
 
-The workflow for this would be: 
+####The workflow for this would be: 
 
 + start a tmux session, 
 + open desired python script with vim,
@@ -31,7 +31,8 @@ The workflow for this would be:
 + now visually selected code and/or delimited blocks(/cells) of code 
 can be sent from the python script in vim to the tmux pane running iPython.
 
-And it would look like this (using cells for execution):
+####And a typical session would look like this 
+(using cells for execution by executing the cell by being inside a cell and hitting Leader+c):
 ![](img/vim_ipython.png)
 
 
