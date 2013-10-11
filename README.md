@@ -26,13 +26,13 @@ recognize the delimited cell blocks.
 ####The workflow for this would be: 
 
 + start a tmux session, 
-+ open desired python script with vim,
-+ then execute the command to open the iPython tmux pane split (eg. `Leader vip`),
-+ now visually selected code and/or delimited blocks(/cells) of code 
-can be sent from the python script in vim to the tmux pane running iPython.
++ open the desired python script with vim,
++ then execute the command to open the iPython tmux split/pane (eg. `Leader vip`),
++ now execute code in the tmux pane with iPython by either visually selecting code 
+to send, or send a block of code that is delimited into cells.
 
-####And a typical session would look like this 
-(using cells for execution by executing the cell by being inside a cell and hitting Leader+c):
+####A typical session would look like this 
+(using cells for execution by executing the cell by being inside that cell and hitting Leader+c):
 ![](img/vim_ipython.png)
 
 
