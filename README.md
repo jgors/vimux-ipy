@@ -32,7 +32,7 @@ recognize the delimited cell blocks.
 to send, or send a block of code that is delimited into cells.
 
 ####A typical session would look like this 
-(using cells for execution by executing the cell by being inside that cell and hitting Leader+c):
+(using cells for execution by executing the cell by being inside of that cell and hitting Leader+c):
 ![](img/vim_ipython.png)
 
 
