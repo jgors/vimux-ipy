@@ -7,6 +7,7 @@ python << endpython
 import vim
 import re
 
+reg_to_use = 'z'#'+' 
 
 def run_visual_code():
     """
@@ -36,7 +37,7 @@ def run_visual_code():
         lines += "\n"
 
         # register might need to be set as * instead of +
-        vim.command(":let @*='%s'" % (lines.replace("'", "''")))
+        vim.command(":let @{0}='{1}'".format(reg_to_use, lines.replace("'", "''")))
         vim.command(':call VimuxRunCommand("%paste\n", 0)')
 
     elif use_cpaste:
@@ -61,7 +62,7 @@ def run_visual_code():
         # Shift the whole text by nindent spaces (so the first line has 0 indent)
         if nindent > 0:
             pat = '\s' * nindent
-            lines = "\n".join([re.sub('^%s' % pat, '', l) for l in lines])
+            lines = "\n".join([re.sub('^{0}'.format(pat), '', l) for l in lines])
             #print '-----------------'
             #print lines
         else:
@@ -72,15 +73,15 @@ def run_visual_code():
         lines += "\n"
 
         vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
-        vim.command(':call VimuxRunCommand("%s", 0)' % lines)
+        vim.command(':call VimuxRunCommand("{0}", 0)'.format(lines))
         vim.command(':call VimuxRunCommand("\n--\n", 0)')
 
     elif use_raw:
         # NOTE doesn't work well
         lines = "\n".join(lines)
         lines += "\n"
-        vim.command("let @+='%s'" % (lines.replace("'", "''")))
-        vim.command(':call VimuxSendText(@+)')
+        vim.command("let @{0}='{1}'".format(reg_to_use, lines.replace("'", "''")))
+        vim.command(':call VimuxSendText(@{0})'.format(reg_to_use))
 
     elif use_register_with_cpaste:
         # works
@@ -96,16 +97,16 @@ def run_visual_code():
         # Shift the whole text by nindent spaces (so the first line has 0 indent)
         if nindent > 0:
             pat = '\s' * nindent
-            lines = "\n".join([re.sub('^%s' % pat, '', l) for l in lines])
+            lines = "\n".join([re.sub('^{0}'.format(pat), '', l) for l in lines])
         else:
             lines = "\n".join(lines)
 
 
         # Add empty newline at the end
         lines += "\n"
-        vim.command("let @+='%s'" % (lines.replace("'", "''"))) #doesn't work w/o this
+        vim.command("let @{0}='{1}'".format(reg_to_use, lines.replace("'", "''"))) #doesn't work w/o this
         vim.command(':call VimuxRunCommand("%cpaste\n", 0)')
-        vim.command(':call VimuxSendText(@+)')
+        vim.command(':call VimuxSendText(@{0})'.format(reg_to_use))
         vim.command(':call VimuxRunCommand("\n--\n", 0)')
 
     # Move cursor to the end of the selection
@@ -120,19 +121,19 @@ def run_cell(save_position=False, cell_delim='####'):
 
     The cell_delim arg can be set such that it is the same as what the 
     iPython notebook uses to delimit its code cells (cell_delim='# <codecell>')  
-    Thus, if cells are seperated with this, then the script can be uploaded & 
-    opened as an iPython notebook, and the iPython NB environment will 
-    recognize the delimited cell blocks.  NOTE, in order for this to work, 
+    Thus, if cells are seperated with this, then the script can be opened 
+    as an iPython notebook and the iPython NB environment will recognize  
+    the delimited cell blocks.  NOTE, in order for this to work, 
     the first thing at the top of the script needs to be: 
     # <nbformat>3</nbformat>
 
     (http://ipython.org/ipython-doc/stable/interactive/htmlnotebook.html#the-notebook-format)
 
-    The :?%s?;/%s/ part creates a range by:
-    ?%s? searches backwards for the cell_delim,
+    The :?{0}?;/{0}/ part creates a range by:
+    ?{0}? searches backwards for the cell_delim,
     then the ';' starts the range from the result of the 
     previous search (cell_delim) to the end of the 
-    range at /%s/ (the next cell_delim).
+    range at /{0}/ (the next cell_delim).
     """
     
     if save_position:
@@ -140,7 +141,7 @@ def run_cell(save_position=False, cell_delim='####'):
         (row, col) = vim.current.window.cursor
 
     # Run chunk on cell range
-    vim.command(':?%s?;/%s/ :python run_visual_code()' % (cell_delim, cell_delim))
+    vim.command(':?{0}?;/{0}/ :python run_visual_code()'.format(cell_delim))
 
     # this clears the highlighting from the delim search
     vim.command(':noh') 
@@ -172,6 +173,10 @@ function! VimuxIpy(...)
     
     " Interrupt any command running in the runner pane
     map <Leader>vq :VimuxInterruptRunner<CR>
+
+    " Zoom the tmux runner page
+    " also, need to use tmux bind-key + z to restore the runner pane.
+    "map <Leader>vz :VimuxZoomRunner<CR>
 
     " Change pane height
     let g:VimuxHeight = "35"
