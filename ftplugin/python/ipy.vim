@@ -7,7 +7,7 @@ python << endpython
 import vim
 import re
 
-reg_to_use = 'z'#'+' 
+reg_to_use = '+' 
 
 def run_visual_code():
     """
